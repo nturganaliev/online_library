@@ -19,11 +19,13 @@ def on_reload():
         book_descriptions_json = file.read()
     book_descriptions = json.loads(book_descriptions_json)
     page_book_chunks = list(chunked(book_descriptions, 20))
-
+    total_pages = len(page_book_chunks)
     for index, page_book_chunk in enumerate(page_book_chunks):
         book_description_chunks = list(chunked(page_book_chunk, 2))
         rendered_page = template.render(
-            book_description_chunks=book_description_chunks
+            book_description_chunks=book_description_chunks,
+            total_pages=total_pages,
+            current_page=index
         )
         with open(f'pages/index{index}.html', 'w', encoding="utf8") as file:
             file.write(rendered_page)
@@ -33,7 +35,7 @@ def main():
     on_reload()
     server = Server()
     server.watch('template.html', on_reload)
-    server.serve(root='.')
+    server.serve(root='./pages')
 
 
 if __name__ == '__main__':
