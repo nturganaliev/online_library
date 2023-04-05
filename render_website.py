@@ -16,7 +16,7 @@ def on_reload():
 
     template = env.get_template('template.html')
 
-    with open('pages/books/book_descriptions.json', 'r') as file:
+    with open('books/book_descriptions.json', 'r', encoding='utf-8') as file:
         book_descriptions_json = file.read()
 
     book_descriptions = json.loads(book_descriptions_json)
@@ -29,7 +29,7 @@ def on_reload():
             total_pages=total_pages,
             current_page=index
         )
-        with open(f'pages/index{index}.html', 'w', encoding="utf8") as file:
+        with open(f'pages/index{index}.html', 'w', encoding="utf-8") as file:
             file.write(rendered_page)
 
 
@@ -38,7 +38,7 @@ def main():
 
     server = Server()
     server.watch('template.html', on_reload)
-    server.serve(root='pages/')
+    server.serve(root='.')
 
 
 if __name__ == '__main__':
