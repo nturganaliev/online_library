@@ -1,6 +1,5 @@
 import os
 import json
-from http.server import HTTPServer, SimpleHTTPRequestHandler
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from livereload import Server
 from more_itertools import chunked
@@ -16,7 +15,7 @@ def on_reload():
 
     template = env.get_template('template.html')
 
-    with open('books/book_descriptions.json', 'r', encoding='utf-8') as file:
+    with open('book_descriptions.json', 'r', encoding='utf-8') as file:
         book_descriptions_json = file.read()
 
     book_descriptions = json.loads(book_descriptions_json)
