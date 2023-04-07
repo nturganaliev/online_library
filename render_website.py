@@ -10,15 +10,14 @@ def on_reload():
         loader=FileSystemLoader('.'),
         autoescape=select_autoescape(['html', 'xml'])
     )
-    directory = os.path.join(os.path.abspath('.'), 'pages')
-    os.makedirs(directory, exist_ok=True)
+    html_pages_folder = os.path.join(os.path.abspath('.'), 'pages')
+    os.makedirs(html_pages_folder, exist_ok=True)
 
     template = env.get_template('template.html')
 
     with open('book_descriptions.json', 'r', encoding='utf-8') as file:
-        book_descriptions_json = file.read()
+        book_descriptions = json.load(file)
 
-    book_descriptions = json.loads(book_descriptions_json)
     page_book_chunks = list(chunked(book_descriptions, 20))
     total_pages = len(page_book_chunks)
     for index, page_book_chunk in enumerate(page_book_chunks):
