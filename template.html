@@ -4,26 +4,27 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <title>Hello, World!</title>
-    <link rel="stylesheet" type="image/png" href="../lg.png">
+    <title>Электронная библиотека</title>
+    <link rel="icon" type="image/png" href="../static/lg.png" sizes="16x16">
+    <!-- <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16"> -->
   </head>
   <body>
     <div class="container">
       <nav class="mx-auto" style="width: 200px; margin-top: 20px;" aria-label="Page navigation example">
         <ul class="pagination">
-          {% if current_page > 0 %}
+          {% if current_page > 1 %}
             <li class="page-item"><a class="page-link" href="../pages/index{{current_page-1}}.html">Предыдущая</a></li>
           {% else %}
             <li class="page-item disabled"><a class="page-link" href="../pages/index{{current_page}}.html">Предыдущая</a></li>
           {% endif %}
-          {% for page in range(total_pages) %}
+          {% for page in range(1, total_pages+1) %}
             {% if page == current_page %}
               <li class="page-item active"><a class="page-link" href="../pages/index{{page}}.html">{{page}}</a></li>
             {% else %}
               <li class="page-item"><a class="page-link" href="../pages/index{{page}}.html">{{page}}</a></li>
             {% endif %}
           {% endfor %}
-          {% if current_page < total_pages-1 %}
+          {% if current_page < total_pages %}
             <li class="page-item"><a class="page-link" href="../pages/index{{current_page+1}}.html">Следующая</a></li>
           {% else %}
             <li class="page-item disabled"><a class="page-link" href="../pages/index{{current_page}}.html">Следующая</a></li>
@@ -31,19 +32,19 @@
         </ul>
       </nav>
       <div class="row">
-        {% for book_description_chunk in book_description_chunks %}
-          {% for book_description in book_description_chunk %}
+        {% for books_per_row in books_per_row_chunks %}
+          {% for book in books_per_row %}
             <div class="col">
               <div class="card mb-3" style="max-width: 540px;">
                 <div class="row no-gutters">
                   <div class="col-md-4">
-                    <img src="../{{book_description.img_src}}" class="card-img" alt="{{book_description.title}}">
+                    <img src="../{{book.img_src}}" class="card-img" alt="{{book.title}}">
                   </div>
                   <div class="col-md-8">
                     <div class="card-body">
-                      <h5 class="card-title"><a href="../media/{{book_description.book_path}}.txt" target="_blank">{{book_description.title}}</a></h5>
-                      <p class="card-text">{{book_description.author}}</p>
-                      {% for genre in book_description.genres %}
+                      <h5 class="card-title"><a href="../media/{{book.book_path}}.txt" target="_blank">{{book.title}}</a></h5>
+                      <p class="card-text">{{book.author}}</p>
+                      {% for genre in book.genres %}
                         <p class="card-text badge badge-secondary">{{genre}}</p>
                       {% endfor %}
                     </div>
