@@ -16,7 +16,6 @@ def url_encode(value):
 def on_reload():
     AMOUNT_PER_PAGE = 20
     AMOUNT_PER_ROW = 2
-    filepath = 'book_descriptions.json'
     env = Environment(
         loader=FileSystemLoader('.'),
         autoescape=select_autoescape(['html', 'xml'])
@@ -29,18 +28,16 @@ def on_reload():
         '--filepath',
         help='--filepath should be entered to get books descriptions',
         nargs='?',
+        default='book_descriptions.json',
         type=str
     )
     args = parser.parse_args()
-
-    if args.filepath:
-        filepath = args.filepath
 
     html_pages_folder = os.path.join(os.path.abspath('.'), 'pages')
     os.makedirs(html_pages_folder, exist_ok=True)
     template = env.get_template('template.html')
 
-    with open(filepath, 'r', encoding='utf-8') as file:
+    with open(args.filepath, 'r', encoding='utf-8') as file:
         book_descriptions = json.load(file)
 
     book_description_chunks = list(
