@@ -14,10 +14,9 @@ def url_encode(value):
 
 
 def on_reload():
-    load_dotenv('.env')
-    amount_per_page = int(os.getenv('AMOUNT_PER_PAGE'))
-    amount_per_row = int(os.getenv('AMOUNT_PER_ROW'))
-    filepath = os.getenv('FILEPATH')
+    AMOUNT_PER_PAGE = 20
+    AMOUNT_PER_ROW = 2
+    filepath = 'book_descriptions.json'
     env = Environment(
         loader=FileSystemLoader('.'),
         autoescape=select_autoescape(['html', 'xml'])
@@ -45,14 +44,14 @@ def on_reload():
         book_descriptions = json.load(file)
 
     book_description_chunks = list(
-        chunked(book_descriptions, amount_per_page)
+        chunked(book_descriptions, AMOUNT_PER_PAGE)
     )
     total_pages = len(book_description_chunks)
 
     for index, book_descriptions_per_page in \
         enumerate(book_description_chunks, 1):
             book_description_per_row_chunks = list(
-                chunked(book_descriptions_per_page, amount_per_row)
+                chunked(book_descriptions_per_page, AMOUNT_PER_ROW)
             )
             rendered_page = template.render(
                 book_description_per_row_chunks=book_description_per_row_chunks,
