@@ -60,7 +60,7 @@ python3 render_website.py
 python render_website.py --filepath=path/to/book_description.json
 ```
 
-И перейдите по [ссылке](http://127.0.0.1:5500/pages/index0.html)
+И перейдите по [ссылке](http://127.0.0.1:5500/pages/index1.html)
 
 ## Цели проекта
 

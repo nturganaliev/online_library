@@ -3,7 +3,6 @@ import os
 import json
 import urllib.parse
 
-from dotenv import load_dotenv
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from livereload import Server
 from more_itertools import chunked
@@ -40,18 +39,18 @@ def on_reload():
     with open(args.filepath, 'r', encoding='utf-8') as file:
         book_descriptions = json.load(file)
 
-    book_description_chunks = list(
+    book_descriptions_chunks = list(
         chunked(book_descriptions, AMOUNT_PER_PAGE)
     )
-    total_pages = len(book_description_chunks)
+    total_pages = len(book_descriptions_chunks)
 
     for index, book_descriptions_per_page in \
-        enumerate(book_description_chunks, 1):
-            book_description_per_row_chunks = list(
+        enumerate(book_descriptions_chunks, 1):
+            book_descriptions_per_row_chunks = list(
                 chunked(book_descriptions_per_page, AMOUNT_PER_ROW)
             )
             rendered_page = template.render(
-                book_description_per_row_chunks=book_description_per_row_chunks,
+                book_descriptions_per_row_chunks=book_descriptions_per_row_chunks,
                 total_pages=total_pages,
                 current_page=index
             )
