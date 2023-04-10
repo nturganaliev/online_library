@@ -41,11 +41,12 @@
                   </div>
                   <div class="col-md-8">
                     <div class="card-body">
-                      <h5 class="card-title"><a href="../media/{{book_description.book_path|url_encode}}.txt" target="_blank">{{book_description.title}}</a></h5>
+                      <h5 class="card-title">{{book_description.title}}</h5>
                       <p class="card-text">{{book_description.author}}</p>
                       {% for genre in book_description.genres %}
                         <p class="card-text badge badge-secondary">{{genre}}</p>
                       {% endfor %}
+                      <p><a href="../media/{{book_description.book_path|url_encode}}.txt" target="_blank">Читать...</a></p>
                     </div>
                   </div>
                 </div>
